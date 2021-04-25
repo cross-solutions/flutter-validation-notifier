@@ -92,7 +92,7 @@ void onLogin() {
 }
 ```
 
-<img src="example.gif"/>
+<img src="https://raw.githubusercontent.com/cross-solutions/flutter-validation-notifier/main/example.gif"/>
 
 #### Important Notes
 
