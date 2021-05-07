@@ -2,7 +2,7 @@ import 'package:meta/meta.dart';
 
 /// Contains logic that validates a value [T].
 abstract class ValidationRule<T extends Object> {
-  bool _isValid = true;
+  bool _isValid = false;
 
   /// Initializes a new instance of [ValidationRule].
   ///
@@ -16,16 +16,22 @@ abstract class ValidationRule<T extends Object> {
   /// Whether the validation is valid or not.
   bool get isValid => _isValid;
 
-  @protected
-  set isValid(bool newValue) => _isValid = newValue;
-
   /// The validation message to show after calling [ValidationRule.validate].
   ///
   /// If [ValidationRule.isValid] is `false`, returns [ValidationRule.errorMessage], otherwise returns an empty string.
-  String get validationMessage => isValid ? '' : errorMessage;
+  String get validationMessage => _isValid ? '' : errorMessage;
 
-  /// Validates the [value].
+  /// Validates the [value] by calling [ValidationRule.checkIsValid].
   ///
-  /// When overriding, you must set the value of [isValid] here.
-  void validate(T? value);
+  /// - [value] - The value to validate.
+  @nonVirtual
+  void validate(T? value) {
+    _isValid = checkIsValid(value);
+  }
+
+  /// Contains the validation logic.
+  ///
+  /// - [value] - The value to validate.
+  @protected
+  bool checkIsValid(T? value);
 }

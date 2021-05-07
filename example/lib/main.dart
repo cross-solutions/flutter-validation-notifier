@@ -63,9 +63,9 @@ class _LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<_LoginForm> {
-  final email = ValidationNotifier<String>(rules: [RequiredRule(), EmailFormatRule()]);
+  final email = ValidationNotifier<String>(rules: [RequiredStringRule(), EmailFormatRule()]);
 
-  final password = ValidationNotifier<String>(rules: [RequiredRule(), StringLengthRule(length: 8)]);
+  final password = ValidationNotifier<String>(rules: [RequiredStringRule(), StringLengthRule(length: 8)]);
 
   @override
   Widget build(BuildContext context) {

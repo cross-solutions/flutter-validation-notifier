@@ -1,6 +1,6 @@
 name: validation_notifier
 description: A ValueNotifier that validates a value against a collection of customizable rules.
-version: 1.0.0+1
+version: 1.1.0
 author: Dustin Catap
 homepage: https://github.com/cross-solutions/flutter-validation-notifier
 repository: https://github.com/cross-solutions/flutter-validation-notifier

@@ -1,29 +1,22 @@
 import 'package:example/regular_expressions.dart';
 import 'package:validation_notifier/validation_notifier.dart';
 
-class RequiredRule<T extends Object> extends ValidationRule<T> {
-  RequiredRule({String errorMessage = 'This field is required'}) : super(errorMessage);
+class RequiredStringRule extends ValidationRule<String> {
+  RequiredStringRule({String errorMessage = 'This field is required'}) : super(errorMessage);
 
   @override
-  void validate(T? value) {
-    isValid = value != null;
-
-    if (value is String?) {
-      final strValue = value as String?;
-      isValid = strValue?.isNotEmpty ?? false;
-    }
-  }
+  bool checkIsValid(String? value) => value?.isNotEmpty ?? false;
 }
 
 class EmailFormatRule extends ValidationRule<String> {
   EmailFormatRule({String errorMessage = 'Invalid email format'}) : super(errorMessage);
 
   @override
-  void validate(String? value) {
+  bool checkIsValid(String? value) {
     if (value == null) {
-      isValid = false;
+      return false;
     } else {
-      isValid = RegularExpressions.emailRegex.hasMatch(value);
+      return RegularExpressions.emailRegex.hasMatch(value);
     }
   }
 }
@@ -34,8 +27,8 @@ class StringLengthRule extends ValidationRule<String> {
   final int length;
 
   @override
-  void validate(String? value) {
+  bool checkIsValid(String? value) {
     final strValue = value ?? '';
-    isValid = strValue.length >= length;
+    return strValue.length >= length;
   }
 }
