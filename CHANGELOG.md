@@ -14,6 +14,10 @@
 
 - Updated to support Flutter 2.2.0
 
-## [1.3.0] - May 19, 2021
+## [1.3.0] - October 1, 2021
+
+- Updated to support Flutter 2.5.0
+
+## [1.3.1] - October 1, 2021
 
 - Updated to support Flutter 2.5.0

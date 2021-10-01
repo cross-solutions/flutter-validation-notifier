@@ -5,7 +5,6 @@ import 'package:validation_notifier/src/validation_rule.dart';
 /// A [ValueNotifier] that validates a value [T] against a specified collection of [ValidationRule].
 class ValidationNotifier<T extends Object> extends ValueNotifier<ValidationResult<T>> {
   late List<ValidationRule<T>> _rules;
-  T? _valueToValidate;
 
   /// Creates a new instance of [ValidationNotifier].
   ///
@@ -14,7 +13,7 @@ class ValidationNotifier<T extends Object> extends ValueNotifier<ValidationResul
   ValidationNotifier({required List<ValidationRule<T>> rules, T? initialValue})
       : assert(rules.isNotEmpty),
         super(ValidationResult.notValidated()) {
-    _valueToValidate = initialValue;
+    valueToValidate = initialValue;
     _rules = List.unmodifiable(rules);
   }
 
@@ -24,15 +23,7 @@ class ValidationNotifier<T extends Object> extends ValueNotifier<ValidationResul
   List<ValidationRule<T>> get rules => _rules;
 
   /// The value which will be validated by each [ValidationNotifier.rules].
-  ///
-  /// Calls [notifyListeners] when setting a new value.
-  T? get valueToValidate => _valueToValidate;
-  set valueToValidate(T? value) {
-    if (_valueToValidate != value) {
-      _valueToValidate = value;
-      notifyListeners();
-    }
-  }
+  T? valueToValidate;
 
   /// Validates [ValidationNotifier.valueToValidate].
   ///
