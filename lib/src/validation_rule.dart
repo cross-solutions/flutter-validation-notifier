@@ -2,16 +2,18 @@ import 'package:meta/meta.dart';
 
 /// Contains logic that validates a value [T].
 abstract class ValidationRule<T extends Object> {
+  final String _errorMessage;
   bool _isValid = false;
 
   /// Initializes a new instance of [ValidationRule].
   ///
   /// - [errorMessage] - The error message to show when validation fails.
-  ValidationRule(this.errorMessage);
+  ValidationRule(String errorMessage)
+      : assert(errorMessage.isNotEmpty),
+        _errorMessage = errorMessage;
 
   /// The error message to show when validation fails.
-  @protected
-  String errorMessage;
+  String get errorMessage => _errorMessage;
 
   /// Whether the validation is valid or not.
   bool get isValid => _isValid;

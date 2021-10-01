@@ -1,12 +1,10 @@
-import 'dart:collection';
-
 import 'package:flutter/foundation.dart';
 import 'package:validation_notifier/src/validation_result.dart';
 import 'package:validation_notifier/src/validation_rule.dart';
 
 /// A [ValueNotifier] that validates a value [T] against a specified collection of [ValidationRule].
 class ValidationNotifier<T extends Object> extends ValueNotifier<ValidationResult<T>> {
-  late UnmodifiableListView<ValidationRule<T>> _rules;
+  late List<ValidationRule<T>> _rules;
   T? _valueToValidate;
 
   /// Creates a new instance of [ValidationNotifier].
@@ -17,15 +15,17 @@ class ValidationNotifier<T extends Object> extends ValueNotifier<ValidationResul
       : assert(rules.isNotEmpty),
         super(ValidationResult.notValidated()) {
     _valueToValidate = initialValue;
-    _rules = UnmodifiableListView(rules);
+    _rules = List.unmodifiable(rules);
   }
 
   /// The collection of [ValidationRule] used to validate [ValidationNotifier.valueToValidate].
   ///
   /// This is a read-only, unmodifiable collection.
-  UnmodifiableListView<ValidationRule<T>> get rules => _rules;
+  List<ValidationRule<T>> get rules => _rules;
 
   /// The value which will be validated by each [ValidationNotifier.rules].
+  ///
+  /// Calls [notifyListeners] when setting a new value.
   T? get valueToValidate => _valueToValidate;
   set valueToValidate(T? value) {
     if (_valueToValidate != value) {

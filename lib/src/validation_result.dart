@@ -4,25 +4,20 @@ import 'package:validation_notifier/src/validation_state.dart';
 /// An immutable result of a validation.
 @immutable
 class ValidationResult<T extends Object> {
+  /// Initializes a new instance of [ValidationResult].
+  const ValidationResult({required this.state, this.validatedValue, this.errorMessage});
+
   /// Initializes a new instance of [ValidationResult] that is invalid, with an optional [validatedValue] and
   /// an [errorMessage] describing it.
-  factory ValidationResult.invalid(
-          {T? validatedValue, required String errorMessage}) =>
-      ValidationResult._(
-          state: ValidationState.invalid,
-          validatedValue: validatedValue,
-          errorMessage: errorMessage);
+  factory ValidationResult.invalid({T? validatedValue, required String errorMessage}) =>
+      ValidationResult(state: ValidationState.invalid, validatedValue: validatedValue, errorMessage: errorMessage);
 
   /// Initializes a new instance of [ValidationResult] that is valid, with an optional [validatedValue].
-  factory ValidationResult.valid({T? validatedValue}) => ValidationResult._(
-      state: ValidationState.valid, validatedValue: validatedValue);
+  factory ValidationResult.valid({T? validatedValue}) =>
+      ValidationResult(state: ValidationState.valid, validatedValue: validatedValue);
 
   /// Initializes a new instance of [ValidationResult] that is not yet validated.
-  factory ValidationResult.notValidated() =>
-      const ValidationResult._(state: ValidationState.notValidated);
-
-  const ValidationResult._(
-      {required this.state, this.validatedValue, this.errorMessage});
+  factory ValidationResult.notValidated() => const ValidationResult(state: ValidationState.notValidated);
 
   /// The value that has been validated.
   final T? validatedValue;
