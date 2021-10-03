@@ -2,14 +2,16 @@ import 'package:example/regular_expressions.dart';
 import 'package:validation_notifier/validation_notifier.dart';
 
 class RequiredStringRule extends ValidationRule<String> {
-  RequiredStringRule({String errorMessage = 'This field is required'}) : super(errorMessage);
-
   @override
   bool checkIsValid(String? value) => value?.isNotEmpty ?? false;
+
+  @override
+  String get errorMessage => 'This field is required';
 }
 
 class EmailFormatRule extends ValidationRule<String> {
-  EmailFormatRule({String errorMessage = 'Invalid email format'}) : super(errorMessage);
+  @override
+  String get errorMessage => 'Invalid email format';
 
   @override
   bool checkIsValid(String? value) {
@@ -22,9 +24,12 @@ class EmailFormatRule extends ValidationRule<String> {
 }
 
 class StringLengthRule extends ValidationRule<String> {
-  StringLengthRule({String errorMessage = 'Invalid length', required this.length}) : super(errorMessage);
+  StringLengthRule(this.length);
 
   final int length;
+
+  @override
+  String get errorMessage => 'Invalid length';
 
   @override
   bool checkIsValid(String? value) {

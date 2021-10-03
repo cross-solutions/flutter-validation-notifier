@@ -12,7 +12,8 @@ Let's say we create a rule that validates inputs that are required callled `Requ
 import 'package:validation_notifier/validation_notifier.dart';
 
 class RequiredStringRule extends ValidationRule<String> {
-  RequiredStringRule({String errorMessage = 'This field is required'}) : super(errorMessage);
+  @override
+  String get errorMessage => 'This field is required';
 
   @override
   bool checkIsValid(String? value) {
@@ -25,10 +26,11 @@ Another rule that validates string inputs requiring them to have a email format 
 
 ```dart
 class EmailFormatRule extends ValidationRule<String> {
-  EmailFormatRule({String errorMessage = 'Invalid email format'}) : super(errorMessage);
-
  static final emailRegex = RegExp(
       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$');
+  
+  @override
+  String get errorMessage => 'Invalid email format';
 
   @override
   bool checkIsValid(String? value) {

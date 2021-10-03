@@ -35,7 +35,7 @@ class ValidationNotifier<T extends Object> extends ValueNotifier<ValidationResul
       rule.validate(valueToValidate);
 
       if (!rule.isValid) {
-        return value = ValidationResult.invalid(validatedValue: valueToValidate, errorMessage: rule.validationMessage);
+        return value = ValidationResult.invalid(validatedValue: valueToValidate, errorMessage: rule.errorMessage);
       }
     }
 

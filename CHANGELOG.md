@@ -20,4 +20,12 @@
 
 ## [1.3.1] - October 1, 2021
 
-- Updated to support Flutter 2.5.0
+- Removed calling `notifyListeners` when updating `ValueNotifier.valueToValidate`
+
+## [1.3.2] - October 3, 2021
+
+- Made `ValidationRule` constructor parameter `errorMessage` optional
+
+## [1.4.0] - October 3, 2021
+
+- Made `ValidationRule.errorMessage` abstract

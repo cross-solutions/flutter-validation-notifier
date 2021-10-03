@@ -73,7 +73,7 @@ class _LoginFormState extends State<_LoginForm> {
   final password = ValidationNotifier<String>(
     rules: [
       RequiredStringRule(),
-      StringLengthRule(length: 8),
+      StringLengthRule(8),
     ],
   );
 
