@@ -25,6 +25,8 @@ class RequiredStringRule extends ValidationRule<String> {
 Another rule that validates string inputs requiring them to have a email format called `EmailFormatRule`
 
 ```dart
+import 'package:validation_notifier/validation_notifier.dart';
+
 class EmailFormatRule extends ValidationRule<String> {
  static final emailRegex = RegExp(
       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$');
@@ -61,7 +63,7 @@ ValueListenableBuilder<ValidationResult<String>>(
   valueListenable: email,
   builder: (context, value, child) {
     return TextFormField(
-      onChanged: (v) => email.valueToValidate = v,
+      onChanged: email.update,
       keyboardType: TextInputType.emailAddress,
       autocorrect: false,
       decoration: InputDecoration(
@@ -81,7 +83,7 @@ Call `ValidationNotifier<T>.validate()` to validate `valueToValidate` using the 
 void onLogin() {
   final validationResult = email.validate();
 
-  if (evalidationResult.state == ValidationState.valid) {
+  if (evalidationResult.isValid) {
     // Valid
   } else {
     // Invalid

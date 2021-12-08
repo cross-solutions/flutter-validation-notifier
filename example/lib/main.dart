@@ -87,7 +87,7 @@ class _LoginFormState extends State<_LoginForm> {
           valueListenable: email,
           builder: (context, value, child) {
             return TextFormField(
-              onChanged: (v) => email.valueToValidate = v,
+              onChanged: email.update,
               keyboardType: TextInputType.emailAddress,
               autocorrect: false,
               decoration: InputDecoration(
@@ -102,7 +102,7 @@ class _LoginFormState extends State<_LoginForm> {
           valueListenable: password,
           builder: (context, value, child) {
             return TextFormField(
-              onChanged: (v) => password.valueToValidate = v,
+              onChanged: password.update,
               decoration: InputDecoration(
                 labelText: 'Password',
                 errorText: value.errorMessage,
@@ -121,13 +121,14 @@ class _LoginFormState extends State<_LoginForm> {
   }
 
   void _onLogin() {
-    email.validate();
-    password.validate();
+    final emailResult = email.validate();
+    final passwordResult = password.validate();
 
-    if (email.value.state == ValidationState.valid && password.value.state == ValidationState.valid) {
+    if (emailResult.isValid && passwordResult.isValid) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('All fields are valid')));
     } else {
-      // Invalid
+      print('Email error: ${emailResult.errorMessage}');
+      print('Password error: ${passwordResult.errorMessage}');
     }
   }
 }

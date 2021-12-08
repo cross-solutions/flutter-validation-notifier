@@ -29,3 +29,7 @@
 ## [1.4.0] - October 3, 2021
 
 - Made `ValidationRule.errorMessage` abstract
+
+## [1.4.1] - December 8, 2021
+
+- Add convenience method and properties

@@ -13,7 +13,7 @@ abstract class ValidationRule<T extends Object> {
   /// Validates the [value] by calling [ValidationRule.checkIsValid].
   ///
   /// - [value] - The value to validate.
-  @nonVirtual
+  @mustCallSuper
   void validate(T? value) {
     _isValid = checkIsValid(value);
   }

@@ -25,6 +25,14 @@ class ValidationNotifier<T extends Object> extends ValueNotifier<ValidationResul
   /// The value which will be validated by each [ValidationNotifier.rules].
   T? valueToValidate;
 
+  /// Convenience method to update [valueToValidate].
+  ///
+  /// - [newValueToValidate] - The new value of [valueToValidate].
+  // ignore: use_setters_to_change_properties
+  void update(T? newValueToValidate) {
+    valueToValidate = newValueToValidate;
+  }
+
   /// Validates [ValidationNotifier.valueToValidate].
   ///
   /// Returns the [ValidationResult] of the validation. Updates [ValueNotifier.value] with the same result.

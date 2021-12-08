@@ -27,4 +27,10 @@ class ValidationResult<T extends Object> {
 
   /// The error message if [state] is invalid.
   final String? errorMessage;
+
+  /// Checks if [validatedValue] is valid.
+  bool get isValid => state == ValidationState.valid;
+
+  /// Checks if [validatedValue] was validated.
+  bool get isValidated => state != ValidationState.notValidated;
 }
