@@ -33,3 +33,7 @@
 ## [1.4.1] - December 8, 2021
 
 - Add convenience method and properties
+
+## [1.4.2] - December 8, 2021
+
+- Add equality operator for `ValidationResult<T>`

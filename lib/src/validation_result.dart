@@ -1,4 +1,5 @@
 import 'package:meta/meta.dart';
+
 import 'package:validation_notifier/src/validation_state.dart';
 
 /// An immutable result of a validation.
@@ -33,4 +34,19 @@ class ValidationResult<T extends Object> {
 
   /// Checks if [validatedValue] was validated.
   bool get isValidated => state != ValidationState.notValidated;
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+
+    return other is ValidationResult<T> &&
+        other.validatedValue == validatedValue &&
+        other.state == state &&
+        other.errorMessage == errorMessage;
+  }
+
+  @override
+  int get hashCode => validatedValue.hashCode ^ state.hashCode ^ errorMessage.hashCode;
 }
