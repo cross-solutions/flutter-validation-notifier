@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:validation_notifier/src/validation_result.dart';
 import 'package:validation_notifier/src/validation_rule.dart';
@@ -5,6 +7,7 @@ import 'package:validation_notifier/src/validation_rule.dart';
 /// A [ValueNotifier] that validates a value [T] against a specified collection of [ValidationRule].
 class ValidationNotifier<T extends Object> extends ValueNotifier<ValidationResult<T>> {
   late List<ValidationRule<T>> _rules;
+  final StreamController<T?> _valueToValidateCtrl = StreamController.broadcast();
 
   /// Creates a new instance of [ValidationNotifier].
   ///
@@ -15,7 +18,11 @@ class ValidationNotifier<T extends Object> extends ValueNotifier<ValidationResul
         super(ValidationResult.notValidated()) {
     valueToValidate = initialValue;
     _rules = List.unmodifiable(rules);
+    valueToValidateChanged = _valueToValidateCtrl.stream;
   }
+
+  /// Stream of events when [valueToValidate] is updated.
+  late Stream<T?> valueToValidateChanged;
 
   /// The collection of [ValidationRule] used to validate [ValidationNotifier.valueToValidate].
   ///
@@ -31,6 +38,7 @@ class ValidationNotifier<T extends Object> extends ValueNotifier<ValidationResul
   // ignore: use_setters_to_change_properties
   void update(T? newValueToValidate) {
     valueToValidate = newValueToValidate;
+    _valueToValidateCtrl.add(valueToValidate);
   }
 
   /// Validates [ValidationNotifier.valueToValidate].
@@ -48,5 +56,11 @@ class ValidationNotifier<T extends Object> extends ValueNotifier<ValidationResul
     }
 
     return value = ValidationResult.valid(validatedValue: valueToValidate);
+  }
+
+  @override
+  void dispose() {
+    _valueToValidateCtrl.close();
+    super.dispose();
   }
 }

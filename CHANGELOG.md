@@ -37,3 +37,7 @@
 ## [1.4.2] - December 8, 2021
 
 - Add equality operator for `ValidationResult<T>`
+
+## [1.4.3] - January 24, 2022
+
+- Add `valueToValidateChanged` stream
