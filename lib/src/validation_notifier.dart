@@ -22,7 +22,7 @@ class ValidationNotifier<T extends Object> extends ValueNotifier<ValidationResul
   }
 
   /// Stream of events when [valueToValidate] is updated.
-  late Stream<T?> valueToValidateChanged;
+  late final Stream<T?> valueToValidateChanged;
 
   /// The collection of [ValidationRule] used to validate [ValidationNotifier.valueToValidate].
   ///

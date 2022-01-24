@@ -41,3 +41,7 @@
 ## [1.4.3] - January 24, 2022
 
 - Add `valueToValidateChanged` stream
+
+## [1.4.3+1] - January 24, 2022
+
+- Finalize `valueToValidateChanged` stream
