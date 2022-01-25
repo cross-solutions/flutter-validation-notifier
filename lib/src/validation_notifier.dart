@@ -6,8 +6,8 @@ import 'package:validation_notifier/src/validation_rule.dart';
 
 /// A [ValueNotifier] that validates a value [T] against a specified collection of [ValidationRule].
 class ValidationNotifier<T extends Object> extends ValueNotifier<ValidationResult<T>> {
-  late List<ValidationRule<T>> _rules;
   final StreamController<T?> _valueToValidateCtrl = StreamController.broadcast();
+  T? _valueToValidate;
 
   /// Creates a new instance of [ValidationNotifier].
   ///
@@ -17,7 +17,7 @@ class ValidationNotifier<T extends Object> extends ValueNotifier<ValidationResul
       : assert(rules.isNotEmpty),
         super(ValidationResult.notValidated()) {
     valueToValidate = initialValue;
-    _rules = List.unmodifiable(rules);
+    this.rules = List.unmodifiable(rules);
     valueToValidateChanged = _valueToValidateCtrl.stream;
   }
 
@@ -27,30 +27,33 @@ class ValidationNotifier<T extends Object> extends ValueNotifier<ValidationResul
   /// The collection of [ValidationRule] used to validate [ValidationNotifier.valueToValidate].
   ///
   /// This is a read-only, unmodifiable collection.
-  List<ValidationRule<T>> get rules => _rules;
+  late final List<ValidationRule<T>> rules;
 
   /// The value which will be validated by each [ValidationNotifier.rules].
-  T? valueToValidate;
+  T? get valueToValidate => _valueToValidate;
+  set valueToValidate(T? newValue) {
+    _valueToValidate = newValue;
+    _valueToValidateCtrl.add(_valueToValidate);
+  }
 
   /// Convenience method to update [valueToValidate].
   ///
   /// - [newValueToValidate] - The new value of [valueToValidate].
   // ignore: use_setters_to_change_properties
-  void update(T? newValueToValidate) {
-    valueToValidate = newValueToValidate;
-    _valueToValidateCtrl.add(valueToValidate);
-  }
+  void update(T? newValueToValidate) => valueToValidate = newValueToValidate;
 
   /// Validates [ValidationNotifier.valueToValidate].
+  ///
+  /// This will call [ValidationRule.checkIsValid] for each [rules]. If the rule becomes invalid
   ///
   /// Returns the [ValidationResult] of the validation. Updates [ValueNotifier.value] with the same result.
   ValidationResult<T> validate() {
     value = ValidationResult.notValidated();
 
     for (final rule in rules) {
-      rule.validate(valueToValidate);
+      final isValid = rule.checkIsValid(valueToValidate);
 
-      if (!rule.isValid) {
+      if (!isValid) {
         return value = ValidationResult.invalid(validatedValue: valueToValidate, errorMessage: rule.errorMessage);
       }
     }

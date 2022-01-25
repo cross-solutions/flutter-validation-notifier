@@ -3,10 +3,10 @@ import 'package:validation_notifier/validation_notifier.dart';
 
 class RequiredStringRule extends ValidationRule<String> {
   @override
-  bool checkIsValid(String? value) => value?.isNotEmpty ?? false;
+  String get errorMessage => 'This field is required';
 
   @override
-  String get errorMessage => 'This field is required';
+  bool checkIsValid(String? value) => value?.isNotEmpty ?? false;
 }
 
 class EmailFormatRule extends ValidationRule<String> {

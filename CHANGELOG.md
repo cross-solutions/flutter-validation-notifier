@@ -45,3 +45,9 @@
 ## [1.4.3+1] - January 24, 2022
 
 - Finalize `valueToValidateChanged` stream
+
+## [1.4.4] - January 25, 2022
+
+- Make `ValidationRule` immutable
+- Removed `ValidationRule.isValid` and `ValidationRule.validate`
+- Finalized `ValidationNotifier.rules`
