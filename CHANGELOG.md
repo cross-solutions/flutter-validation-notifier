@@ -51,3 +51,7 @@
 - Make `ValidationRule` immutable
 - Removed `ValidationRule.isValid` and `ValidationRule.validate`
 - Finalized `ValidationNotifier.rules`
+
+## [1.4.5] - June 5, 2022
+
+- Add `ValidationResult.hasError`

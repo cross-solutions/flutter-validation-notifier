@@ -35,6 +35,9 @@ class ValidationResult<T extends Object> {
   /// Checks if [validatedValue] was validated.
   bool get isValidated => state != ValidationState.notValidated;
 
+  /// Checks if [errorMessage] has value or its [state] is [ValidationState.invalid].
+  bool get hasError => errorMessage?.isNotEmpty ?? state == ValidationState.invalid;
+
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) {
