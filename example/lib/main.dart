@@ -64,14 +64,14 @@ class _LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<_LoginForm> {
   final email = ValidationNotifier<String>(
-    rules: [
+    rules: const [
       RequiredStringRule(),
       EmailFormatRule(),
     ],
   );
 
   final password = ValidationNotifier<String>(
-    rules: [
+    rules: const [
       RequiredStringRule(),
       StringLengthRule(8),
     ],

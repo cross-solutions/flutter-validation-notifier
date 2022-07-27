@@ -55,3 +55,7 @@
 ## [1.4.5] - June 5, 2022
 
 - Add `ValidationResult.hasError`
+
+## [1.4.6] - July 27, 2022
+
+- Add constant constructor to `ValidationRule<T>`

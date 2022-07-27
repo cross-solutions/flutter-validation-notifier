@@ -12,6 +12,8 @@ Let's say we create a rule that validates inputs that are required callled `Requ
 import 'package:validation_notifier/validation_notifier.dart';
 
 class RequiredStringRule extends ValidationRule<String> {
+  const RequiredStringRule();
+
   @override
   String get errorMessage => 'This field is required';
 
@@ -30,6 +32,8 @@ import 'package:validation_notifier/validation_notifier.dart';
 class EmailFormatRule extends ValidationRule<String> {
  static final emailRegex = RegExp(
       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$');
+
+  const EmailFormatRule();
   
   @override
   String get errorMessage => 'Invalid email format';
@@ -50,7 +54,7 @@ class EmailFormatRule extends ValidationRule<String> {
 You can add your previously created rules to a `ValidationNotifier<T>`
 
 ```dart
-final email = ValidationNotifier<String>(rules: [
+final email = ValidationNotifier<String>(rules: const [
   RequiredRule(),
   EmailFormatRule(),
 ]);
